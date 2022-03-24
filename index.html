@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>crypto</title>
+    <link rel = "stylesheet" type = "text/css" href = "css.css">
+    <script src = "js.js"></script>
+</head>
+<body>
+
+    <!-- start of main -->
+
+    <div class = "container">
+        
+        <!-- types -->
+                <label>type</label>
+                    <select id = "types"  onchange = "display()">
+                        <option selected value = "shift">shift cipher</option>
+                             <option value = "Affine">Affine Cipher</option>
+                               
+                    </select>
+                    <br>
+
+    <label>Key1</label>
+        <input type = "number" id = "key"/>
+            <label  id = "labelK2">Key2</label>
+                 <input type = "number" id = "key2" disabled />
+                     <br>
+                <label>message</label>
+                    <input type = "text" id = "in"/>
+                        <br>
+                        <label> result</label>
+                              <input type = "text" id = "out" readonly/>
+                             <br>
+                                  <button onclick = "shift()" id = "button">encrypt</button>
+                                      <button onclick = "dShift()" id = "swap">decrypt</button>
+    </div>
+
+   <!-- end of main -->
+
+    <!--start footer -->
+    
+        
+    <footer>
+        
+        if you have any comments or found issues<br>
+       <a href = "https://forms.gle/vr7MzHz1zVUkzfyY7">tell us</a> 
+      
+    </footer>
+       
+       <!--end footer -->
+        
+</body>
+</html>
