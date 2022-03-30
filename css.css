@@ -1,54 +1,88 @@
-
-/* container */
-
-.container
+/* heade */
+header{
+    font-weight: 700;
+    color: black;
+    text-align: center;
+    font-size: 48px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-bottom: 50px;
+}
+body{
+    /* background-color: #f0f0f0; */
+}
+/* Calculator */
+.container{
+    width: 600px;
+    height: 1000px;
+    margin: auto;
+}
+.Calculator
 {
-   background-color: darkturquoise;
-    width: 500px;
-    height: 200px;
+   background-color:dodgerblue;
+    width: 600px;
+    height: 300px;
     margin: auto;
     padding-top: 50px;
-    font-family: cursive;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  
   
 }
-.container label
+img{
+  float:right;
+  margin-right: 50px;
+}
+.Calculator label
 {
    
     margin-right: 20px;
-    padding-left: 120px;
+    padding-left: 20px;
   
 }
-.container button
+button
 {
     color:#fff;
     background-color: blue;
     width: 100px;
     height: 50px;
-    margin:20px
+    margin:20px;
+    border-style: none;
+    
   
 }
-.container #button
+ #button
 {
+    margin-left:155px;
+   
     
-    margin-left:125px
   
 }
 #key,#key2{
     width: 50px;
 }
 #out {
-    margin-left: 18px;
+    margin-left: 23px;
 }
 #key {
-    margin-left: 29px;
+    margin-left: 28px;
 }
 #labelK2 {
     margin-right: 14px;
     padding: 0px;
 }
 select {
-    margin-left: 29px;
+    margin-left: 31px;
     padding-right: 76px;
+}
+#encryptEq{
+    margin: 50px 0 0 20px;
+    line-height: 30px;
+    width: 300px;
+   
+}
+
+.illustration{
+    background-color:#ddd;
+ 
 }
 
 /* footer */

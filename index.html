@@ -7,10 +7,12 @@
 </head>
 <body>
 
-    <!-- start of main -->
-
-    <div class = "container">
-        
+    <!-- Header -->
+    <header>Cipher Calculator</header>
+    <!-- Calculator -->
+<div class="container">
+    <div class = "Calculator">
+        <img src="figure3.png"  height="220">
         <!-- types -->
                 <label>type</label>
                     <select id = "types"  onchange = "display()">
@@ -31,12 +33,22 @@
                         <label> result</label>
                               <input type = "text" id = "out" readonly/>
                              <br>
-                                  <button onclick = "shift()" id = "button">encrypt</button>
-                                      <button onclick = "dShift()" id = "swap">decrypt</button>
+                             <p id = "encryptEq">
+                                E<sub>e</sub></sub>(m) = m + e mod 26
+                                <br>
+                                D<sub>d</sub>(c) = c - d mod 26
+                             </p>
+                          
+                                 
     </div>
 
-   <!-- end of main -->
+   <!-- end of claclator -->
 
+   <button onclick = "shift()" id = "button">encrypt</button>
+   <button onclick = "dShift()" id = "swap">decrypt</button>
+   <section class = "illustration" id="illustration">
+   </section>
+</div>
     <!--start footer -->
     
         
