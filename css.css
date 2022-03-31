@@ -20,7 +20,7 @@ body{
 {
    background-color:dodgerblue;
     width: 600px;
-    height: 300px;
+    height: 310px;
     margin: auto;
     padding-top: 50px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
@@ -74,15 +74,33 @@ select {
     padding-right: 76px;
 }
 #encryptEq{
-    margin: 50px 0 0 20px;
+    margin: 30px 0 0 20px;
     line-height: 30px;
     width: 300px;
    
 }
+.rangeLabel{
+margin: 20px 0 0 20px;
+display: inline-block;
 
+}
+
+#modRangeChoice{
+   padding: 0;
+   
+}
+.modRange{
+    margin-left: 20px;
+}
 .illustration{
     background-color:#ddd;
  
+}
+#lowerCaseAlphabets{
+    margin-top: 10px;
+}
+#lowerCaseAlphabets,#upperCaseAlphabets,#Both{
+    margin-left: 30px;
 }
 
 /* footer */

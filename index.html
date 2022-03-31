@@ -8,7 +8,7 @@
 <body>
 
     <!-- Header -->
-    <header>Cipher Calculator</header>
+    <header><span style ="color: #ff0000;">C</span>ipher <span style ="color: #ff0000;">C</span>alculator</header>
     <!-- Calculator -->
 <div class="container">
     <div class = "Calculator">
@@ -33,12 +33,23 @@
                         <label> result</label>
                               <input type = "text" id = "out" readonly/>
                              <br>
-                             <p id = "encryptEq">
-                                E<sub>e</sub></sub>(m) = m + e mod 26
-                                <br>
-                                D<sub>d</sub>(c) = c - d mod 26
-                             </p>
-                          
+                   <span class="rangeLabel">Range</span>
+                   <br>
+                     <input type = "radio"  value = "lowerCaseAlphabets" id = "lowerCaseAlphabets" name = "modRange" class = "modRange"onchange="switchBetweenRanges(this)">
+                     <label for="lowerCaseAlphabets" id = "modRangeChoice">a-z</label> 
+                             <br>
+                             
+                     <input type = "radio"  value = "upperCaseAlphabets" id = "upperCaseAlphabets" name = "modRange" class = "modRange"onchange="switchBetweenRanges(this)"> 
+                     <label for = "upperCaseAlphabets" id = "modRangeChoice">AZ</label>
+                             <br>
+                     <input type = "radio"  value = "Both" id = "Both" name = "modRange" class = "modRange" onchange="switchBetweenRanges(this)"> 
+                     <label for = "Both" id = "modRangeChoice">Both</label>
+
+                     <p id = "encryptEq">
+                        E<sub>e</sub></sub>(m) = m + e mod 26
+                        <br>
+                        D<sub>d</sub>(c) = c - d mod 26
+                     </p>
                                  
     </div>
 

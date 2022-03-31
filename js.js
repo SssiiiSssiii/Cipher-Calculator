@@ -283,4 +283,19 @@ function dAffine(){
            
         }
     }
+
+    function switchBetweenRanges(value){
+        if(value.value == "lowerCaseAlphabets"){ 
+            document.getElementById("encryptEq").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
+        }
+        else if(value.value == "upperCaseAlphabets"){
+            document.getElementById("encryptEq").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26 "
+        }
+        else
+        document.getElementById("encryptEq").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 52<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 52 "
+        
+        
+
+   
+    }
     console.log("\u0049 \u0068\u006f\u0070\u0065 \u0074\u006f \u0066\u0069\u006e\u0064 \u0079\u006f\u0075\u0072 \u0068\u0065\u0061\u0076\u0065\u006e\u002e")
