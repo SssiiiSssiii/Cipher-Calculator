@@ -1,2 +1,2 @@
 # Crypto
-Made with love and some HTML,CSS,JS  
+Made with Love and some HTML,CSS,JS  
