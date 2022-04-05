@@ -7,45 +7,49 @@
 </head>
 <body>
 
-    <!-- Header -->
-    <header><span style ="color: #ff0000;">C</span>ipher <span style ="color: #ff0000;">C</span>alculator</header>
-    <!-- Calculator -->
-<div class="container">
-    <div class = "Calculator">
-        <img src="figure3.png"  height="220">
-        <!-- types -->
+<!-- Header -->
+    <header>
+        <span style = "color: #ff0000;">C</span>ipher <span style = "color: #ff0000;">C</span>alculator
+    </header>
+
+<!-- calculator -->
+
+<div class = "container">
+    <div class = "calculator">
+        <img src = "f.png"  height="220">
+
+<!-- encryptionMethods -->
+
                 <label>type</label>
-                    <select id = "types"  onchange = "display()">
+                    <select id = "encryptionMethods"  onchange = "display()">
                         <option selected value = "shift">shift cipher</option>
-                             <option value = "Affine">Affine Cipher</option>
-                               
+                              <option value = "affine">affine cipher</option>                  
                     </select>
+
                     <br>
 
     <label>Key1</label>
-        <input type = "number" id = "key"/>
-            <label  id = "labelK2">Key2</label>
+        <input type = "number" id = "key1"/>
+            <label  id = "labelKey2">Key2</label>
                  <input type = "number" id = "key2" disabled />
-                     <br>
-                <label>message</label>
-                    <input type = "text" id = "in"/>
                         <br>
-                        <label> result</label>
-                              <input type = "text" id = "out" readonly/>
-                             <br>
-                   <span class="rangeLabel">Range</span>
-                   <br>
-                     <input type = "radio"  value = "lowerCaseAlphabets" id = "lowerCaseAlphabets" name = "modRange" class = "modRange"onchange="switchBetweenRanges(this)">
-                     <label for="lowerCaseAlphabets" id = "modRangeChoice">a-z</label> 
-                             <br>
-                             
-                     <input type = "radio"  value = "upperCaseAlphabets" id = "upperCaseAlphabets" name = "modRange" class = "modRange"onchange="switchBetweenRanges(this)"> 
-                     <label for = "upperCaseAlphabets" id = "modRangeChoice">AZ</label>
-                             <br>
-                     <input type = "radio"  value = "Both" id = "Both" name = "modRange" class = "modRange" onchange="switchBetweenRanges(this)"> 
-                     <label for = "Both" id = "modRangeChoice">Both</label>
 
-                     <p id = "encryptEq">
+                <label>message</label>
+                    <input type = "text" id = "plainText"/>
+                        <br>
+
+                <label> result</label>
+                    <input type = "text" id = "cipherText" readonly/>
+                        <br>
+
+                   <label>Range</label>
+                    <select id = "Range"  onchange = "switchBetweenRanges()">
+                        <option selected value = "lowerCaseAlphabets" selected>a-z</option>
+                            <option value = "upperCaseAlphabets">A-Z</option>  
+                               <option value = "both">Both</option>                 
+                        </select>
+                       <br>
+                     <p id = "encryptEquation">
                         E<sub>e</sub></sub>(m) = m + e mod 26
                         <br>
                         D<sub>d</sub>(c) = c - d mod 26

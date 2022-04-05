@@ -1,150 +1,123 @@
-	
-    
-      //shift cipher
-      function shift(){
-        
-              var select = document.getElementById('types');
-              var value = select.options[select.selectedIndex].value;
+function GCD(key, range){
+    if (key == 0)
+        return range;
+    return GCD(range % key, key);
+}
+function inverseOfKey(key, range) {
+    if (GCD(key, range) == 1) {
+        y = 1;
+        inverse = (range * y + 1) / key;
+        while (inverse % 1 !== 0) {
+            y++;
+            inverse = (range * y + 1) / key;
+        }    
+        return inverse;
+    }    
+    return -1;
+}    
 
-        //get the value of the select
-   
+function tracing(plainText,cipherText){
+    var  illustration = "<b>Tracing<br> <br>" ;
+    for (var e = 0; e < plainText.length; e++)
+      illustration += plainText[e] + "   &#8594  " + '<span style="color: red;">'+cipherText[e]+'</span>' + '<br>'
+    return  illustration;  
+}    
+       //shift cipher
+ function shift(){
+              var select = document.getElementById('encryptionMethods');
+              var value = select.options[select.selectedIndex].value;
+        //get the value of the select      
     if(value == "shift"){
-        
-      
     	//input
-	var m = document.getElementById("in").value;
-    var  k = document.getElementById('key').value;
+	var m = document.getElementById("plainText").value;    
+    var  k = document.getElementById('key1').value;
 
     if(m.length == 0){
-        document.getElementById("in").value =  "required";
+        document.getElementById("plainText").value =  "required";
         return
-    }
+    }    
     if(k.length == 0){
-        document.getElementById("key").value =  "required";
+        document.getElementById("key1").value =  "required";
         return
-    }
+    }    
 
-    	//encryption
-	var c = "";
+//encryption
+	var c = "";    
+    var range = 
 	for (var e = 0; e < m.length; e++){
       
         if( m[e] <='z' &&  m[e] >='a'){
             c += String.fromCharCode(((m[e].charCodeAt(0)-'a'.charCodeAt(0)+parseInt(k)) ) %26 + 'a'.charCodeAt(0))
             }
         else{  
-            document.getElementById("out").value =  "pls enter only alphapets";return;
-        }
-    }
-    document.getElementById("out").value =  c ;
-
+            alert ("Just follow the range you chose.");return
+        }    
+    }    
     var illustration = document.getElementById("illustration") ;
-    var abc = "<b>Tracing<br> <br>" ;
-    for (var e = 0; e < m.length; e++){
-        
-        abc += m[e] + "   &#8594  " + '<span style="color: red;">'+c[e]+'</span>' + '<br>'
-    }
-    illustration.innerHTML = abc;
-    }
-}
-
+    document.getElementById("cipherText").value =  c ;
+        illustration.innerHTML = tracing(m,c);
+    }    
+}    
 
 // affine
 function affine(){
-
    //get the value of the select
-var select = document.getElementById('types');
+var select = document.getElementById('encryptionMethods');
 var value = select.options[select.selectedIndex].value;
 
     //inputs
-var m = document.getElementById("in").value;
-var  k = document.getElementById('key').value;
+var m = document.getElementById("plainText").value;
+var  key1 = document.getElementById('key1').value;
 var  b = document.getElementById('key2').value;
 
     if(m.length == 0){
-            document.getElementById("in").value =  "required";
+            document.getElementById("plainText").value =  "required";
             return
         }
     if(b.length == 0){
         document.getElementById("key2").value =  "required";
         return
     }
-    if(k.length == 0){
-        document.getElementById("key").value =  "required";
+    if(key1.length == 0){
+        document.getElementById("key1").value =  "required";
         return
     }
 
-if(value == "Affine"){
-    
-if(Number(k) == 1||
-    Number(k) == 3||
-    Number(k) == 5||
-    Number(k) == 7||
-    Number(k) == 9||
-    Number(k) == 11||
-    Number(k) == 15||
-    Number(k) == 17||
-    Number(k) == 19||
-    Number(k) == 21||
-    Number(k) == 23||
-    Number(k) == 25){
-
+if(value == "affine"){
 //encryption
+if( GCD(key1, 26) == 1 ){
 var c = "";
-
         for (var e = 0; e < m.length; e++){
-        
             if(  m[e] <='z' &&  m[e] >='a' )
-                c += String.fromCharCode(((parseInt(k)*(m[e].charCodeAt(0) - 'a'.charCodeAt(0)) + parseInt(b)) ) %26 + 'a'.charCodeAt(0))
+                c += String.fromCharCode(((parseInt(key1)*(m[e].charCodeAt(0) - 'a'.charCodeAt(0)) + parseInt(b)) ) %26 + 'a'.charCodeAt(0))
             else{
-                  document.getElementById("out").value =  "pls enter only alphapets";return
+                 alert ("Just follow the range you chose.");return
              }
-            
           }
-              document.getElementById("out").value =  c ;
-
-              var illustration = document.getElementById("illustration") ;
-              var abc = "<b>Tracing<br> <br>" ;
-              for (var e = 0; e < m.length; e++){
-                  
-                  abc += m[e] + "   &#8594  " + '<span style="color: red;">'+c[e]+'</span>' + '<br>'
-              }
-              illustration.innerHTML = abc;
-             
+          illustration.innerHTML = tracing(m,c);
         } 
         else
-        document.getElementById("out").value =  "there is no inverse for" + " " + k;
+              alert("there is no inverse for "+ key1);return;
     }
- 
-
-}
-
-//circular
-function negative(i){
-    if(i<0){
-            while(i<0)
-                i+=26;
-        }
-            return i;
-
 }
 
 //decrypt shift cipher
     function dShift(){
      
-    var select = document.getElementById('types');
+    var select = document.getElementById('encryptionMethods');
     var value = select.options[select.selectedIndex].value;
 
           //input
-      var m = document.getElementById("in").value;
-      var  k = document.getElementById('key').value;
+      var m = document.getElementById("plainText").value;
+      var  k = document.getElementById('key1').value;
     
       
     if(m.length == 0 ){
-        document.getElementById("in").value =  "required";
+        document.getElementById("plainText").value =  "required";
         return
     }
     if(k.length == 0){
-        document.getElementById("key").value =  "required";
+        document.getElementById("key1").value =  "required";
         return
     }
     
@@ -156,64 +129,27 @@ function negative(i){
                 c += String.fromCharCode(((m[e].charCodeAt(0)-'a'.charCodeAt(0)-parseInt(k)) ) %26 + 'a'.charCodeAt(0))
                 }
             else{  
-                document.getElementById("out").value =  "pls enter only alphapets";return;
+                alert ("Just follow the range you chose.");return
             }
-
          }   
-            document.getElementById("out").value =  c ;
+            document.getElementById("cipherText").value =  c ;
         }
-
-        var illustration = document.getElementById("illustration") ;
-        var abc = "<b>Tracing<br> <br>" ;
-        for (var e = 0; e < m.length; e++){
-            
-            abc += m[e] + "   &#8594  " + '<span style="color: red;">'+c[e]+'</span>' + '<br>'
-        }
-        illustration.innerHTML = abc;
+        illustration.innerHTML = tracing(m,c);
     }
   
     
-//decrypt Affine cipher
-function dAffine(){
-       
-    function getInverse(k){
-        if(Number(k) == 1)
-        return 1
-       else if( Number(k) == 3)
-       return 9
-       else if( Number(k)== 5)
-       return 21
-       else if( Number(k)== 7)
-       return 15
-       else if( Number(k)== 9)
-       return 3
-       else if( Number(k)== 11)
-       return 19
-       else if( Number(k)== 15)
-       return 7
-       else if( Number(k)== 17)
-       return 23
-       else if( Number(k)== 19)
-       return 11
-       else if( Number(k)== 21)
-       return 5
-       else if( Number(k)== 23)
-       return 17
-       else if( Number(k)== 25)
-       return 25
-    }
-
+//decrypt affine cipher
+function daffine(){
     //get the value of select
-    var select = document.getElementById('types');
-    var value = select.options[select.selectedIndex].value;
-
-      //input
-      var m = document.getElementById("in").value;
-      var  k = document.getElementById('key').value;
+     var select = document.getElementById('encryptionMethods');
+     var value = select.options[select.selectedIndex].value;
+    //input
+      var m = document.getElementById("plainText").value;
+      var  k = document.getElementById('key1').value;
       var  b = document.getElementById('key2').value;
 
       if(m.length == 0){
-        document.getElementById("in").value =  "required";
+        document.getElementById("plainText").value =  "required";
         return
     }
         if(b.length == 0){
@@ -221,81 +157,85 @@ function dAffine(){
             return
         }
        if(k.length == 0){
-            document.getElementById("key").value =  "required";
+            document.getElementById("key1").value =  "required";
             return
         }
     
-    if(value == "Affine"){
-     
+    if(value == "affine"){
     var c = "";
     //decryption
-
     for (var e = 0; e < m.length; e++){
-
-        if( m[e] <='z' &&  m[e] >='a'){
-            c += String.fromCharCode(((parseInt(getInverse(parseInt(k)))*(  negative((m[e].charCodeAt(0) - 'a'.charCodeAt(0))  - parseInt(b)))) ) %26 + 'a'.charCodeAt(0))
+    if( m[e] <='z' &&  m[e] >='a' && inverseOfKey(parseInt(k),26) >= 1){
+        c+= String.fromCharCode( (parseInt((inverseOfKey(parseInt(k), 26)) * ((m[e].charCodeAt(0) -'a'.charCodeAt(0))- parseInt(b))) % 26 + 26) %26+ 'a'.charCodeAt(0)  );
             }
         else{  
-            document.getElementById("out").value =  "pls enter only alphapets";return;
+            alert("there is no inverse for"+ k);return;
         }
-
-     }   
-
-        document.getElementById("out").value =  c ;
-
-        var illustration = document.getElementById("illustration") ;
-        var abc = "<b>Tracing<br> <br>" ;
-        for (var e = 0; e < m.length; e++){
-            
-            abc += m[e] + "   &#8594  " + '<span style="color: red;">'+c[e]+'</span>' + '<br>'
-        }
-        illustration.innerHTML = abc;
+     }  
+        document.getElementById("cipherText").value =  c ;
+        illustration.innerHTML = tracing(m,c);
     }
 }
 
     //switch bettwen fns
     function display(){
         
-        var select = document.getElementById('types');
+        var select = document.getElementById('encryptionMethods');
         var value = select.options[select.selectedIndex].value;
-        if(value == "Affine"){
-            document.getElementById('key2').disabled = false;
+        if(value == "affine"){
+            switchBetweenRanges()
+             document.getElementById('key2').disabled = false;
             document.getElementById('button').onclick = affine;
-            document.getElementById('swap').onclick = dAffine;
-            document.getElementById('in').value = "";
-            document.getElementById('out').value = "";
-            document.getElementById('key').value = "";
+            document.getElementById('swap').onclick = daffine;
+            document.getElementById('plainText').value = "";
+            document.getElementById('cipherText').value = "";
+            document.getElementById('key1').value = "";
             document.getElementById('key2').value = "";
             document.getElementById('illustration').innerHTML = "";
-            document.getElementById("encryptEq").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26"
-           
+            
         }
         else if(value == "shift"){
+            switchBetweenRanges()
             document.getElementById('key2').disabled = true;
             document.getElementById('button').onclick = shift;
             document.getElementById('swap').onclick = dShift;
-            document.getElementById('in').value = "";
-            document.getElementById('out').value = "";
-            document.getElementById('key').value = "";
+            document.getElementById('plainText').value = "";
+            document.getElementById('cipherText').value = "";
+            document.getElementById('key1').value = "";
             document.getElementById('key2').value = "";
             document.getElementById('illustration').innerHTML = "";
-            document.getElementById("encryptEq").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
-           
+            
         }
     }
 
-    function switchBetweenRanges(value){
-        if(value.value == "lowerCaseAlphabets"){ 
-            document.getElementById("encryptEq").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
-        }
-        else if(value.value == "upperCaseAlphabets"){
-            document.getElementById("encryptEq").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26 "
-        }
-        else
-        document.getElementById("encryptEq").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 52<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 52 "
-        
-        
+    function switchBetweenRanges(){
+        var Range = document.getElementById('Range');
+        var value = Range.options[Range.selectedIndex].value;
 
-   
+        var encryptionMethods = document.getElementById('encryptionMethods');
+        var valueOfEncryptionMethods = encryptionMethods.options[encryptionMethods.selectedIndex].value;
+
+        if(value == "lowerCaseAlphabets"){ 
+            if(valueOfEncryptionMethods == "shift")
+                  document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
+            else
+                 document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26"
+
+        }
+        else if(value == "upperCaseAlphabets"){
+            if(valueOfEncryptionMethods == "shift")
+            document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
+            else
+            document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26"
+
+        }
+        else{
+            if(valueOfEncryptionMethods == "shift")
+                 document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 52 <br> D<sub>d</sub>(c) = c - d mod 52"
+            else
+              document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 52<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 52"
+
+        }
+
     }
     console.log("\u0049 \u0068\u006f\u0070\u0065 \u0074\u006f \u0066\u0069\u006e\u0064 \u0079\u006f\u0075\u0072 \u0068\u0065\u0061\u0076\u0065\u006e\u002e")

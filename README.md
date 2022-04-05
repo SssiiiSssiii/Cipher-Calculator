@@ -1,2 +1,0 @@
-# Crypto
-made with love.
