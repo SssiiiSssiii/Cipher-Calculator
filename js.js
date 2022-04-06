@@ -1,3 +1,7 @@
+const lowerAlphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+const upperAlphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+const alphabet      = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
 function GCD(key, range){
     if (key == 0)
         return range;
@@ -16,43 +20,79 @@ function inverseOfKey(key, range) {
     return -1;
 }    
 
+function checkThefieldsIsnotEmpty(m,k){
+    if(m.length == 0){
+      alert("Please enter the values in the fields")
+        return false;
+    }    
+    if(k.length == 0){
+         alert("Please enter the values in the fields")
+        return false
+    }
+    return true    
+}
+function checkThefieldsIsnotEmpty2(m,k,b){
+    if(b.length == 0){
+        alert("Please enter the values in the fields")
+        return false
+    }
+    if(checkThefieldsIsnotEmpty(m,k))
+        return true  
+        return false 
+
+}
 function tracing(plainText,cipherText){
     var  illustration = "<b>Tracing<br> <br>" ;
-    for (var e = 0; e < plainText.length; e++)
-      illustration += plainText[e] + "   &#8594  " + '<span style="color: red;">'+cipherText[e]+'</span>' + '<br>'
+    for (var letter = 0; letter < plainText.length; letter++)
+      illustration += plainText[letter] + "   &#8594  " + '<span style="color: red;">'+cipherText[letter]+'</span>' + '<br>'
     return  illustration;  
 }    
        //shift cipher
  function shift(){
               var select = document.getElementById('encryptionMethods');
               var value = select.options[select.selectedIndex].value;
+
+              var Range = document.getElementById('Range');
+              var valueOFRange = Range.options[Range.selectedIndex].value;
+      
         //get the value of the select      
     if(value == "shift"){
     	//input
 	var m = document.getElementById("plainText").value;    
     var  k = document.getElementById('key1').value;
+    var mod = switchBetweenRanges ();
 
-    if(m.length == 0){
-        document.getElementById("plainText").value =  "required";
+    if(!checkThefieldsIsnotEmpty(m,k))
         return
-    }    
-    if(k.length == 0){
-        document.getElementById("key1").value =  "required";
-        return
-    }    
 
 //encryption
 	var c = "";    
-    var range = 
 	for (var e = 0; e < m.length; e++){
       
-        if( m[e] <='z' &&  m[e] >='a'){
-            c += String.fromCharCode(((m[e].charCodeAt(0)-'a'.charCodeAt(0)+parseInt(k)) ) %26 + 'a'.charCodeAt(0))
-            }
-        else{  
-            alert ("Just follow the range you chose.");return
-        }    
+        if(valueOFRange == 'lowerCaseAlphabets'){
+            if(m[e] >= 'a' && m[e] <= 'z')
+              c += lowerAlphabet[((lowerAlphabet.indexOf(m[e])+parseInt(k)) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
+        }
+        
+        else if(valueOFRange == 'upperCaseAlphabets'){
+            if(m[e] >= 'A' && m[e] <= 'Z')
+              c += upperAlphabet[((upperAlphabet.indexOf(m[e])+parseInt(k)) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
+        }
+        else{
+            if(m[e] >= 'A' && m[e] <= 'Z' || m[e] >= 'a' && m[e] <= 'z')
+              c += alphabet[((alphabet.indexOf(m[e])+parseInt(k)) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
+        }
     }    
+
     var illustration = document.getElementById("illustration") ;
     document.getElementById("cipherText").value =  c ;
         illustration.innerHTML = tracing(m,c);
@@ -64,36 +104,47 @@ function affine(){
    //get the value of the select
 var select = document.getElementById('encryptionMethods');
 var value = select.options[select.selectedIndex].value;
-
+var Range = document.getElementById('Range');
+var valueOFRange = Range.options[Range.selectedIndex].value;
     //inputs
 var m = document.getElementById("plainText").value;
 var  key1 = document.getElementById('key1').value;
 var  b = document.getElementById('key2').value;
+var mod = switchBetweenRanges ();
 
-    if(m.length == 0){
-            document.getElementById("plainText").value =  "required";
-            return
-        }
-    if(b.length == 0){
-        document.getElementById("key2").value =  "required";
+    if(!checkThefieldsIsnotEmpty2(m,key1,b))
         return
-    }
-    if(key1.length == 0){
-        document.getElementById("key1").value =  "required";
-        return
-    }
 
 if(value == "affine"){
 //encryption
 if( GCD(key1, 26) == 1 ){
 var c = "";
-        for (var e = 0; e < m.length; e++){
-            if(  m[e] <='z' &&  m[e] >='a' )
-                c += String.fromCharCode(((parseInt(key1)*(m[e].charCodeAt(0) - 'a'.charCodeAt(0)) + parseInt(b)) ) %26 + 'a'.charCodeAt(0))
-            else{
-                 alert ("Just follow the range you chose.");return
-             }
-          }
+
+            for (var e = 0; e < m.length; e++){
+                
+                if(valueOFRange == 'lowerCaseAlphabets'){
+                    if(m[e] >= 'a' && m[e] <= 'z')
+                    c += lowerAlphabet[((lowerAlphabet.indexOf(m[e])*parseInt(key1)+parseInt(b)) % mod + mod )%mod]
+                    else{  
+                        alert ("Just follow the range you chose.");return
+                    }    
+                }
+                
+                else if(valueOFRange == 'upperCaseAlphabets'){
+                    if(m[e] >= 'A' && m[e] <= 'Z')
+                    c += upperAlphabet[((upperAlphabet.indexOf(m[e])*parseInt(key1)+parseInt(b)) % mod + mod )%mod]
+                    else{  
+                        alert ("Just follow the range you chose.");return
+                    }    
+                }
+                else{
+                    if(m[e] >= 'A' && m[e] <= 'Z' || m[e] >= 'a' && m[e] <= 'z')
+                    c += alphabet[((alphabet.indexOf(m[e])*parseInt(key1)+parseInt(b)) % mod + mod )%mod]
+                    else{  
+                        alert ("Just follow the range you chose.");return
+                    }    
+                }
+            }    
           illustration.innerHTML = tracing(m,c);
         } 
         else
@@ -106,10 +157,13 @@ var c = "";
      
     var select = document.getElementById('encryptionMethods');
     var value = select.options[select.selectedIndex].value;
+    var Range = document.getElementById('Range');
+    var valueOFRange = Range.options[Range.selectedIndex].value;
 
           //input
       var m = document.getElementById("plainText").value;
       var  k = document.getElementById('key1').value;
+      var mod = switchBetweenRanges ();
     
       
     if(m.length == 0 ){
@@ -125,13 +179,30 @@ var c = "";
         var c = ""
         //decryption
         for (var e = 0; e < m.length; e++){
-            if( m[e] <='z' &&  m[e] >='a'){
-                c += String.fromCharCode(((m[e].charCodeAt(0)-'a'.charCodeAt(0)-parseInt(k)) ) %26 + 'a'.charCodeAt(0))
-                }
-            else{  
-                alert ("Just follow the range you chose.");return
+      
+            if(valueOFRange == 'lowerCaseAlphabets'){
+                if(m[e] >= 'a' && m[e] <= 'z')
+                  c += lowerAlphabet[((lowerAlphabet.indexOf(m[e])-parseInt(k)) % mod + mod )%mod]
+                else{  
+                    alert ("Just follow the range you chose.");return
+                }    
             }
-         }   
+            
+            else if(valueOFRange == 'upperCaseAlphabets'){
+                if(m[e] >= 'A' && m[e] <= 'Z')
+                  c += upperAlphabet[((upperAlphabet.indexOf(m[e])-parseInt(k)) % mod + mod )%mod]
+                else{  
+                    alert ("Just follow the range you chose.");return
+                }    
+            }
+            else{
+                if(m[e] >= 'A' && m[e] <= 'Z' || m[e] >= 'a' && m[e] <= 'z')
+                  c += alphabet[((alphabet.indexOf(m[e])-parseInt(k)) % mod + mod )%mod]
+                else{  
+                    alert ("Just follow the range you chose.");return
+                }    
+            }
+        }       
             document.getElementById("cipherText").value =  c ;
         }
         illustration.innerHTML = tracing(m,c);
@@ -143,11 +214,14 @@ function daffine(){
     //get the value of select
      var select = document.getElementById('encryptionMethods');
      var value = select.options[select.selectedIndex].value;
+     var Range = document.getElementById('Range');
+     var valueOFRange = Range.options[Range.selectedIndex].value;
+
     //input
       var m = document.getElementById("plainText").value;
       var  k = document.getElementById('key1').value;
       var  b = document.getElementById('key2').value;
-
+      var mod = switchBetweenRanges ();
       if(m.length == 0){
         document.getElementById("plainText").value =  "required";
         return
@@ -164,14 +238,32 @@ function daffine(){
     if(value == "affine"){
     var c = "";
     //decryption
+    
     for (var e = 0; e < m.length; e++){
-    if( m[e] <='z' &&  m[e] >='a' && inverseOfKey(parseInt(k),26) >= 1){
-        c+= String.fromCharCode( (parseInt((inverseOfKey(parseInt(k), 26)) * ((m[e].charCodeAt(0) -'a'.charCodeAt(0))- parseInt(b))) % 26 + 26) %26+ 'a'.charCodeAt(0)  );
-            }
-        else{  
-            alert("there is no inverse for"+ k);return;
+                
+        if(valueOFRange == 'lowerCaseAlphabets'){
+            if(m[e] >= 'a' && m[e] <= 'z')
+            c += lowerAlphabet[((inverseOfKey(parseInt(k), mod)*(lowerAlphabet.indexOf(m[e])-parseInt(b))) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
         }
-     }  
+        
+        else if(valueOFRange == 'upperCaseAlphabets'){
+            if(m[e] >= 'A' && m[e] <= 'Z')
+            c += upperAlphabet[((inverseOfKey(parseInt(k), mod)*(upperAlphabet.indexOf(m[e])-parseInt(b))) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
+        }
+        else{
+            if(m[e] >= 'A' && m[e] <= 'Z' || m[e] >= 'a' && m[e] <= 'z')
+            c += alphabet[((inverseOfKey(parseInt(k), mod)*(alphabet.indexOf(m[e])-parseInt(b))) % mod + mod )%mod]
+            else{  
+                alert ("Just follow the range you chose.");return
+            }    
+        }
+    }    
         document.getElementById("cipherText").value =  c ;
         illustration.innerHTML = tracing(m,c);
     }
@@ -220,21 +312,21 @@ function daffine(){
                   document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
             else
                  document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26"
-
+            return 26;
         }
         else if(value == "upperCaseAlphabets"){
             if(valueOfEncryptionMethods == "shift")
             document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 26 <br> D<sub>d</sub>(c) = c - d mod 26"
             else
             document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 26<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 26"
-
+            return 26;
         }
         else{
             if(valueOfEncryptionMethods == "shift")
                  document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub></sub>(m) = m + e mod 52 <br> D<sub>d</sub>(c) = c - d mod 52"
             else
               document.getElementById("encryptEquation").innerHTML = " E<sub>e=(a,b)</sub>(m) = c = am + b mod 52<br>D<sub>d</sub>(c) = m = a<sup>-1</sup>(c - b) mod 52"
-
+            return 52;
         }
 
     }

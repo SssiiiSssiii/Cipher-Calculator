@@ -48,13 +48,16 @@ button
 }
  #button
 {
-    margin-left:155px;
+    margin-left:180px;
    
     
   
 }
 #key1,#key2{
     width: 50px;
+}
+#key2{
+    padding-left: 6px;
 }
 #cipherText {
     margin-left: 23px;
@@ -68,7 +71,7 @@ button
 }
 select {
     margin-left: 31px;
-    padding-right: 76px;
+    padding-right: 80px;
 }
 #encryptEquation{
     margin: 30px 0 0 20px;
@@ -78,7 +81,7 @@ select {
 }
 #Range{
 margin-left: 18px;
-padding-right: 124px;
+padding-right: 125px;
 }
 
 #modRangeChoice{
