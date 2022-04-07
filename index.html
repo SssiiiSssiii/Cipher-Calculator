@@ -63,6 +63,68 @@
    <button onclick = "dShift()" id = "swap">decrypt</button>
    <section class = "illustration" id="illustration">
    </section>
+   <div class = "info">
+       
+    <h2>Modular Math and the Shift Cipher</h2>
+
+    The Caesar Cipher is a type of shift cipher. Shift Ciphers work by using the <br>
+    modulo operator to encrypt and decrypt messages. The Shift Cipher has a key <b>K</b>,
+    <br> which is <b>an integer from 0 to 25</b>. We will only share this key with people<br>
+    that we want to see our message.
+    <h2>How to Encrypt:</h2>
+    
+    For every letter in the message <b>M</b> :<br>
+    <br>
+    <br>
+    <ol>
+        <li>
+            Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number X.
+            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+        </li>
+
+        <li>
+            Calculate: <b>Y = (X + K) mod 26</b>
+        </li>
+
+        <li> 
+            Convert the number Y into a letter that matches its order in the alphabet starting from 0.
+            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+        </li>
+
+    </ol>
+    <h3>For Example:</h3><br>
+     We agree with our friend to use the Shift Cipher with key <b>K=19</b> for our message. 
+    We encrypt the message <mark><b>caesar</b></mark>, as follows:​
+    
+    So, after applying the Shift Cipher with key K=19 our message text <mark><b>caesar</b></mark> gave us cipher text <mark><b>vtxltk</b></mark>.
+    We give the message <mark><b>vtxltk</b></mark> to our friend.
+
+    <h2>How to decrypt:</h2>
+    For every letter in the cipher text <b>C</b> :
+    <br>
+
+    <ol>
+        <li>
+            Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number <b>Y</b>.
+            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+        </li>
+     
+        <li>
+            Calculate: <b>X= (Y - K) mod 26</b>
+        </li>
+        <li>
+            Convert the number <b>X</b> into a letter that matches its order in the alphabet starting from 0.
+            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+        </li>
+    </ol>
+
+    Our friend now decodes the message using our agreed upon key <b>K=19</b>. As follows:
+    So, after decrypting the Shift Cipher with key <b>K=19</b> our friend deciphers the cipher text  <mark><b>vtxltk</b></mark> into the message text <mark><b>caesar</b></mark>.
+    <br>
+   <h2> How to use the Cipher Calculator?</h2>
+       <p><b>type</b> :  Select the encryption method you want</p> 
+       <p><b>Range</b> : Specify the domain you want to encode, whether uppercase or lowercase letters, or both</p>  
+       <span class="enjoy">Just enjoy. &#128516;</span>
 </div>
     <!--start footer -->
     
