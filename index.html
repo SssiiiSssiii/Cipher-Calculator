@@ -1,142 +1,277 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>crypto</title>
-    <link rel = "stylesheet" type = "text/css" href = "css.css">
-    <script src = "js.js"></script>
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <script src="js.js"></script>
 </head>
+
 <body>
 
-<!-- Header -->
+    <!-- Header -->
     <header>
-        <span style = "color: #ff0000;">C</span>ipher <span style = "color: #ff0000;">C</span>alculator
+        <span style="color: #ff0000;">C</span>ipher <span style="color: #ff0000;">C</span>alculator
     </header>
 
-<!-- calculator -->
+    <!-- calculator -->
 
-<div class = "container">
-    <div class = "calculator">
-        <img src = "f.png"  height="220">
+    <div class="container">
+        <div class="calculator">
+            <img src="f.png" height="220">
 
-<!-- encryptionMethods -->
+            <!-- encryptionMethods -->
 
-                <label>type</label>
-                    <select id = "encryptionMethods"  onchange = "display()">
+            <label>type</label>
+            <select id="encryptionMethods" onchange="display()">
                         <option selected value = "shift">shift cipher</option>
-                              <option value = "affine">affine cipher</option>                  
+                            <option value = "affine">affine cipher</option>  
+                                <option value = "substitution">substitution cipher</option>                 
+                                        <option value = "vigenere">vigenere cipher</option> 
+                                            <option value = "hill">hill cipher</option>      
+                                                <option value = "permutation">permutation cipher</option>   
                     </select>
+            <br>
 
-                    <br>
+            <label id="labelKey1">Key1</label>
+            <input type="number" id="key1" />
+            <label id="labelKey2">Key2</label>
+            <input type="number" id="key2" disabled />
+            <br>
 
-    <label>Key1</label>
-        <input type = "number" id = "key1"/>
-            <label  id = "labelKey2">Key2</label>
-                 <input type = "number" id = "key2" disabled />
-                        <br>
-
-                <label>message</label>
-                    <input type = "text" id = "plainText"/>
-                        <br>
-
-                <label> result</label>
-                    <input type = "text" id = "cipherText" readonly/>
-                        <br>
-
-                   <label>Range</label>
-                    <select id = "Range"  onchange = "switchBetweenRanges()">
+            <label>message</label>
+            <input type="text" id="plainText" />
+            <br>
+            <label>Range</label>
+            <select id="Range" onchange="switchBetweenRanges()">
                         <option selected value = "lowerCaseAlphabets" selected>a-z</option>
                             <option value = "upperCaseAlphabets">A-Z</option>  
                                <option value = "both">Both</option>                 
                         </select>
-                       <br>
-                     <p id = "encryptEquation">
-                        E<sub>e</sub></sub>(m) = m + e mod 26
-                        <br>
-                        D<sub>d</sub>(c) = c - d mod 26
-                     </p>
-                                 
-    </div>
+            <br>
+            <label> result</label>
+            <input type="text" id="cipherText" readonly/>
+            <br>
+            <div id="SubstitutionTable">
+                <label id="SubstitutionTableCaption">Substitution Table</label>
+                <table>
+                    <thead>
+                        <th>Plain</th>
+                        <th>Cooded</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class = "message">a</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">b</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">c</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">d</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">e</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">f</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">g</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">h</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">i</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">j</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">k</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">l</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">m</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">n</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">o</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">p</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">q</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >r</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >s</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >t</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >u</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >v</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >w</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message" >x</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">y</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tr>
+                            <td class = "message">z</td>
+                            <td><input class="coded" /></td>
+                        </tr>
+                        <tbody>
+                </table>
+            </div>
+            
+            <div id = "permutationTable">
+              
 
-   <!-- end of claclator -->
+            </div>
+            <div id = "hillMatTable">
+                <label id="hillMatTableCaption"> encryption Matrix</label>
+                    <table  >
+                        <tr>
+                            <td><input type = "number" id="cell1" /></td>
+                            <td><input type = "number" id="cell2" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type = "number" id="cell3" /></td>
+                            <td><input type = "number" id="cell4" /></td>
+                        </tr>
+                    </table>
+                </div>
 
-   <button onclick = "shift()" id = "button">encrypt</button>
-   <button onclick = "dShift()" id = "swap">decrypt</button>
-   <section class = "illustration" id="illustration">
-   </section>
-   <div class = "info">
-       
-    <h2>Modular Math and the Shift Cipher</h2>
+                <p id="encryptEquation">
+                    E<sub>e</sub></sub>(m) = m + e mod 26
+                    <br> D
+                    <sub>d</sub>(c) = c - d mod 26
+                </p>
+                <!-- <p id="note"><strong>Note : ignore spaces</strong></p> -->
+                <!-- <p id="note"><strong>Note : ignore spaces</strong></p> -->
 
-    The Caesar Cipher is a type of shift cipher. Shift Ciphers work by using the <br>
-    modulo operator to encrypt and decrypt messages. The Shift Cipher has a key <b>K</b>,
-    <br> which is <b>an integer from 0 to 25</b>. We will only share this key with people<br>
-    that we want to see our message.
-    <h2>How to Encrypt:</h2>
-    
-    For every letter in the message <b>M</b> :<br>
-    <br>
-    <br>
-    <ol>
-        <li>
-            Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number X.
-            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
-        </li>
+            </div>
 
-        <li>
-            Calculate: <b>Y = (X + K) mod 26</b>
-        </li>
 
-        <li> 
-            Convert the number Y into a letter that matches its order in the alphabet starting from 0.
-            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
-        </li>
+            <!-- end of claclator -->
 
-    </ol>
-    <h3>For Example:</h3><br>
-     We agree with our friend to use the Shift Cipher with key <b>K=19</b> for our message. 
-    We encrypt the message <mark><b>caesar</b></mark>, as follows:​
-    
-    So, after applying the Shift Cipher with key K=19 our message text <mark><b>caesar</b></mark> gave us cipher text <mark><b>vtxltk</b></mark>.
-    We give the message <mark><b>vtxltk</b></mark> to our friend.
+            <button onclick="shift()" id="button">encrypt</button>
+            <button onclick="dShift()" id="swap">decrypt</button>
+            <section class="illustration" id="illustration">
+            </section>
+            <div class="info">
 
-    <h2>How to decrypt:</h2>
-    For every letter in the cipher text <b>C</b> :
-    <br>
+                <h2>Modular Math and the Shift Cipher</h2>
 
-    <ol>
-        <li>
-            Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number <b>Y</b>.
-            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
-        </li>
-     
-        <li>
-            Calculate: <b>X= (Y - K) mod 26</b>
-        </li>
-        <li>
-            Convert the number <b>X</b> into a letter that matches its order in the alphabet starting from 0.
-            <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
-        </li>
-    </ol>
+                The Caesar Cipher is a type of shift cipher. Shift Ciphers work by using the <br> modulo operator to encrypt and decrypt messages. The Shift Cipher has a key <b>K</b>,
+                <br> which is <b>an integer from 0 to 25</b>. We will only share this key with people<br> that we want to see our message.
+                <h2>How to Encrypt:</h2>
 
-    Our friend now decodes the message using our agreed upon key <b>K=19</b>. As follows:
-    So, after decrypting the Shift Cipher with key <b>K=19</b> our friend deciphers the cipher text  <mark><b>vtxltk</b></mark> into the message text <mark><b>caesar</b></mark>.
-    <br>
-   <h2> How to use the Cipher Calculator?</h2>
-       <p><b>type</b> :  Select the encryption method you want</p> 
-       <p><b>Range</b> : Specify the domain you want to encode, whether uppercase or lowercase letters, or both</p>  
-       <span class="enjoy">Just enjoy. &#128516;</span>
-</div>
-    <!--start footer -->
-    
-        
-    <footer>
-        
-        if you have any comments or found issues<br>
-       <a href = "https://forms.gle/vr7MzHz1zVUkzfyY7">tell us</a> 
-      
-    </footer>
-       
-       <!--end footer -->
-        
+                For every letter in the message <b>M</b> :<br>
+                <br>
+                <br>
+                <ol>
+                    <li>
+                        Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number X.
+                        <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+                    </li>
+
+                    <li>
+                        Calculate: <b>Y = (X + K) mod 26</b>
+                    </li>
+
+                    <li>
+                        Convert the number Y into a letter that matches its order in the alphabet starting from 0.
+                        <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+                    </li>
+
+                </ol>
+                <h3>For Example:</h3><br> We agree with our friend to use the Shift Cipher with key <b>K=19</b> for our message. We encrypt the message <mark><b>caesar</b></mark>, as follows:​ So, after applying the Shift Cipher with key K=19 our message
+                text
+                <mark><b>caesar</b></mark> gave us cipher text <mark><b>vtxltk</b></mark>. We give the message <mark><b>vtxltk</b></mark> to our friend.
+
+                <h2>How to decrypt:</h2>
+                For every letter in the cipher text <b>C</b> :
+                <br>
+
+                <ol>
+                    <li>
+                        Convert the letter into the number that matches its order in the alphabet starting from 0, and call this number <b>Y</b>.
+                        <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+                    </li>
+
+                    <li>
+                        Calculate: <b>X= (Y - K) mod 26</b>
+                    </li>
+                    <li>
+                        Convert the number <b>X</b> into a letter that matches its order in the alphabet starting from 0.
+                        <mark><b>( A=0, B=1, C=2, ...,Y=24, Z=25)</b></mark>
+                    </li>
+                </ol>
+
+                Our friend now decodes the message using our agreed upon key <b>K=19</b>. As follows: So, after decrypting the Shift Cipher with key <b>K=19</b> our friend deciphers the cipher text <mark><b>vtxltk</b></mark> into the message text <mark><b>caesar</b></mark>.
+                <br>
+                <h2> How to use the Cipher Calculator?</h2>
+                <p><b>type</b> : Select the encryption method you want</p>
+                <p><b>Range</b> : Specify the domain you want to encode, whether uppercase or lowercase letters, or both</p>
+                <span class="enjoy">Just enjoy. &#128516;</span>
+            </div>
+            <!--start footer -->
+
+
+            <footer>
+
+                if you have any comments or found issues<br>
+                <a href="https://forms.gle/vr7MzHz1zVUkzfyY7">tell us</a>
+
+            </footer>
+
+            <!--end footer -->
+
 </body>
+
 </html>
