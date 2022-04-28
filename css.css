@@ -1,4 +1,4 @@
-/* heade */
+/* header */
 header{
     font-weight: 700;
     color: black;
@@ -188,10 +188,18 @@ footer
 {
     
     margin-top: 100px;
+    padding-bottom: 500px;
     overflow: hidden;
     text-align: center;
     padding: 5px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 11px;
     font-weight: bold;
+}
+
+/* End of Footer */
+
+
+.dead{
+    margin-top: 100px;
 }
