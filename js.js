@@ -3,7 +3,7 @@ const upperAlphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','
 const alphabet      = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 var message;
 var cipherMessage;
-var  key = 0;
+var key = 0;
 var mod = 0;
 var range;
 var valueOFRange;
@@ -176,6 +176,7 @@ function dAffine() {
 
  //Substitution
 function substitution() {
+
     const codedAlphabet = [];
     getValues();
 
@@ -188,11 +189,30 @@ function substitution() {
             alert("Are you kidding me how can I complete the process without the rest of the items ?😞")
             return;
         }
+        if( isInRange ( document.getElementsByClassName("coded")[i].value ) )
             codedAlphabet[i] = document.getElementsByClassName("coded")[i].value;
+        else{
+            alert("It's Not A Letter!");
+            illustration.innerHTML = "";
+            return;
+        }
     }
 
-    for( var i = 0; i < message.length; i++ )
-        cipherMessage += codedAlphabet[ lowerAlphabet.indexOf( message[i] ) ];
+    if(  checkDuplicate( codedAlphabet ) ){
+        alert( "Duplicate items" );
+        illustration.innerHTML = "";
+        return;
+    }
+        
+    for( var i = 0; i < message.length; i++ ){
+        if( isInRange ( message[i] ))
+            cipherMessage += codedAlphabet[ lowerAlphabet.indexOf( message[i] ) ];
+        else{
+            alert("It's Not A Letter!");
+            illustration.innerHTML = "";
+            return;
+        }
+    }
 
     document.getElementById("cipherText").value =  cipherMessage ;
     
@@ -213,14 +233,32 @@ function dSubstitution() {
             alert("Are you kidding me how can I complete the process without the rest of the items ?😞")
             return;
         }
-        codedAlphabet[i] = document.getElementsByClassName("coded")[i].value;
+        if( isInRange ( document.getElementsByClassName("coded")[i].value ) )
+            codedAlphabet[i] = document.getElementsByClassName("coded")[i].value;
+        else{
+            alert("It's Not A Letter!");
+            illustration.innerHTML = "";
+            return;
+        }
+    }
+    
+    if(  checkDuplicate( codedAlphabet ) ){
+        alert( "Duplicate items" );
+        illustration.innerHTML = "";
+        return;
     }
 
-    for( var i = 0; i < message.length; i++ )
-        cipherMessage += alphabet[ codedAlphabet.indexOf( message[i] )  ];
+    for( var i = 0; i < message.length; i++ ){
+        if( isInRange ( message[i] ))
+            cipherMessage += alphabet[ codedAlphabet.indexOf( message[i] )  ];
+        else{
+            alert("It's Not A Letter!");
+            illustration.innerHTML = "";
+            return;
+        }
+    }
 
     document.getElementById("cipherText").value =  cipherMessage ;
-    
     illustration.innerHTML = tracing(message,cipherMessage);
 }
 
@@ -301,37 +339,57 @@ function hill() {
 
         if( message.length % 2 == 0 ) {
 
-            for( var letter = 0; letter < message.length-1; letter++ ) {
-                if( ( message[letter]  >= 'a' && message[letter]  <= 'z' ) && ( valueOFRange == "lowerCaseAlphabets" ) ){
-                    cipherMessage += lowerAlphabet[ (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                    cipherMessage += lowerAlphabet[ ( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
-                    letter++;
-                }
-                    else if( ( message[letter] >= 'A' && message[letter]  <= 'Z' ) && ( valueOFRange == "upperCaseAlphabets" ) ){
-                        cipherMessage += upperAlphabet[ (c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                        cipherMessage += upperAlphabet[ ( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
-                        letter++;
-                    }
-                    else if( ( isNaN( message[letter] ) ) && ( valueOFRange == "both" ) ){
-                        cipherMessage += alphabet[ (c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                        cipherMessage += alphabet[ ( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
-                        letter++;
-                    }
+                if( ( valueOFRange == "lowerCaseAlphabets" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( ( message[letter]  >= 'a' && message[letter]  <= 'z' ) && ( message[letter+1]  >= 'a' && message[letter+1]  <= 'z' ) ) {
+                            cipherMessage += lowerAlphabet[ (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += lowerAlphabet[ ( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
                         else {  
                             alert ("Just Follow The Range You Chose.😡");
                             illustration.innerHTML = "";
                             return;
                         }    
-                        document.getElementById("cipherText").value =  cipherMessage ;
-                        illustration.innerHTML = tracing( message , cipherMessage );
+                    }
                 }
-            }
-                else{
-                    alert( "Can You Add One More Letter Pls 👉👈" )
-                    illustration.innerHTML = "";
+                else if( ( valueOFRange == "upperCaseAlphabets" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( ( message[letter]  >= 'A' && message[letter]  <= 'Z' ) && ( message[letter+1]  >= 'A' && message[letter+1]  <= 'Z' ))  {
+                            cipherMessage += upperAlphabet[ (c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += upperAlphabet[ ( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
+                        else {  
+                            alert ("Just Follow The Range You Chose.😡");
+                            illustration.innerHTML = "";
+                            return;
+                        }    
+                    }
                 }
+                else if( ( valueOFRange == "both" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( isNaN(message[letter]) && isNaN(message[letter+1] ) )  {
+                            cipherMessage += alphabet[ (c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += alphabet[ ( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
+                        else {  
+                            alert ("Just Follow The Range You Chose.😡");
+                            illustration.innerHTML = "";
+                            return;
+                        }    
+                    }
+                }
+            document.getElementById("cipherText").value =  cipherMessage ;
+            illustration.innerHTML = tracing( message , cipherMessage );
+        }
+    else {
+        alert( "Can You Add One More Letter Pls 👉👈" )
+        illustration.innerHTML = "";
     }
-    else{
+}
+    else {
         illustration.innerHTML = ""
         alert( "There Is No Inverse For The Key" );
     }
@@ -360,43 +418,65 @@ function dHill() {
     var c3 = (-Number(document.getElementById("cell3").value)+26)*inverseOfKey (det,26);
     var c1 = Number(document.getElementById("cell4").value)*inverseOfKey (det,26);
 
+    
     if( GCD( det , mod ) == 1 ) {
+
         if( message.length % 2 == 0 ) {
-            for( var letter = 0; letter < message.length-1; letter++ ) {
-                if( ( message[letter]  >= 'a' && message[letter]  <= 'z' ) && ( valueOFRange == "lowerCaseAlphabets" ) ){
-                    cipherMessage += lowerAlphabet[ (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                    cipherMessage += lowerAlphabet[ ( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
-                    letter++;
-                }
-                    else if( ( message[letter] >= 'A' && message[letter]  <= 'Z' ) && ( valueOFRange == "upperCaseAlphabets" ) ){
-                        cipherMessage += upperAlphabet[ (c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                        cipherMessage += upperAlphabet[ ( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
-                        letter++;
-                    }
-                    else if( ( isNaN( message[letter] ) ) && ( valueOFRange == "both" ) ){
-                        cipherMessage += alphabet[ (c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                        cipherMessage += alphabet[ ( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
-                        letter++;
-                    }
+
+                if( ( valueOFRange == "lowerCaseAlphabets" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( ( message[letter]  >= 'a' && message[letter]  <= 'z' ) && ( message[letter+1]  >= 'a' && message[letter+1]  <= 'z' ) ) {
+                            cipherMessage += lowerAlphabet[ (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += lowerAlphabet[ ( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
                         else {  
                             alert ("Just Follow The Range You Chose.😡");
                             illustration.innerHTML = "";
                             return;
                         }    
-                        document.getElementById("cipherText").value =  cipherMessage ;
-                        illustration.innerHTML = tracing( message , cipherMessage );
+                    }
                 }
-            }
-                else{
-                    alert( "Can You Add One More Letter Pls 👉👈" )
-                    illustration.innerHTML = "";
+                else if( ( valueOFRange == "upperCaseAlphabets" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( ( message[letter]  >= 'A' && message[letter]  <= 'Z' ) && ( message[letter+1]  >= 'A' && message[letter+1]  <= 'Z' ))  {
+                            cipherMessage += upperAlphabet[ (c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += upperAlphabet[ ( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
+                        else {  
+                            alert ("Just Follow The Range You Chose.😡");
+                            illustration.innerHTML = "";
+                            return;
+                        }    
+                    }
                 }
+                else if( ( valueOFRange == "both" ) ){
+                    for( var letter = 0; letter < message.length-1; letter++ ) {
+                        if( isNaN(message[letter]) && isNaN(message[letter+1] ) ) {
+                            cipherMessage += alphabet[ (c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += alphabet[ ( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            letter++;
+                        }
+                        else {  
+                            alert ("Just Follow The Range You Chose.😡");
+                            illustration.innerHTML = "";
+                            return;
+                        }    
+                    }
+                }
+            document.getElementById("cipherText").value =  cipherMessage ;
+            illustration.innerHTML = tracing( message , cipherMessage );
+        }
+    else {
+        alert( "Can You Add One More Letter Pls 👉👈" )
+        illustration.innerHTML = "";
     }
-    else{
+}
+    else {
         illustration.innerHTML = ""
         alert( "There Is No Inverse For The Key" );
     }
-
 }
 
  //Permutation
@@ -404,7 +484,6 @@ function permutation() {
 
     const codedAlphabet = [];
     getValues();
-
     if( isEmpty( message ) || isEmpty( key ) )
         return;
 
@@ -413,16 +492,22 @@ function permutation() {
                 alert("Are you kidding me how can I complete the process without the rest of the items ?😞")
                 return;
             }
-            codedAlphabet[i] = document.getElementsByClassName("coded2")[i].value;
+                codedAlphabet[i] = document.getElementsByClassName("coded2")[i].value;
+        }
+
+        if(  checkDuplicate( codedAlphabet ) ){
+            alert( "Duplicate items" );
+            illustration.innerHTML = "";
+            return;
         }
 
         for( var i = 0; i < message.length; i++ ) {
             for( var j = 0; j < key; j++ ) {
-                cipherMessage += message[ ( codedAlphabet[j] - 1 ) + i ]
+                if( isInRange(message[j]) )
+                    cipherMessage += message[ ( codedAlphabet[j] - 1 ) + i ]
             }
             i+=5;
         }
-    
         document.getElementById("cipherText").value =  cipherMessage ;
         illustration.innerHTML = tracing(message,cipherMessage);
 
@@ -441,7 +526,13 @@ function dPermutation() {
                 alert("Are you kidding me how can I complete the process without the rest of the items ?😞")
                 return;
             }
-            codedAlphabet[i] = Number(document.getElementsByClassName("coded2")[i].value);
+            codedAlphabet[i] = document.getElementsByClassName("coded2")[i].value;
+        }
+
+        if(  checkDuplicate( codedAlphabet ) ){
+            alert( "Duplicate items" );
+            illustration.innerHTML = "";
+            return;
         }
 
         for( var i = 0; i < key; i++ )
@@ -449,7 +540,13 @@ function dPermutation() {
 
         for( var i = 0; i < message.length; i++ ) {
             for( var j = 0; j < key; j++ ) {
-                cipherMessage += message[ ( inverseAlphabet[j] - 1 ) + i ]
+                if( isInRange( message[j] ))
+                    cipherMessage += message[ ( inverseAlphabet[j] - 1 ) + i ];
+                else{
+                    alert("It's Not A Letter!");
+                    illustration.innerHTML = "";
+                    return;
+                }
             }
             i+=5;
         }
@@ -482,6 +579,7 @@ function display() {
             document.getElementById('key1').type = "number"
             document.getElementById('button').onclick = affine;
             document.getElementById('swap').onclick = dAffine;
+            document.getElementById('Range').disabled = false;
             clear();
             
         }
@@ -495,6 +593,7 @@ function display() {
             document.getElementById('permutationTable').style.display = "none"
             document.getElementById('button').onclick = shift;
             document.getElementById('swap').onclick = dShift;
+            document.getElementById('Range').disabled = false;
             clear();
             
         }
@@ -507,6 +606,7 @@ function display() {
             document.getElementById('key1').disabled = true;
             document.getElementById('button').onclick = substitution;
             document.getElementById('swap').onclick = dSubstitution;
+            document.getElementById('Range').disabled = true;
             clear();
         }
         else if(value == "vigenere") {
@@ -520,6 +620,7 @@ function display() {
             document.getElementById('key2').disabled = true;
             document.getElementById('button').onclick = vigenere;
             document.getElementById('swap').onclick = dVigenere;
+            document.getElementById('Range').disabled = false;
             clear();
         }
         else if(value == "hill") {
@@ -531,6 +632,7 @@ function display() {
             document.getElementById('permutationTable').style.display = "none"
             document.getElementById('button').onclick = hill;
             document.getElementById('swap').onclick = dHill;
+            document.getElementById('Range').disabled = false;
             clear();
         }
         else if(value == "permutation") {
@@ -544,6 +646,7 @@ function display() {
             document.getElementById('button').onclick = permutation;
             document.getElementById('key1').onkeyup = createTable;
             document.getElementById('swap').onclick = dPermutation;
+            document.getElementById('Range').disabled = true;
             clear();
         }
 }
@@ -557,7 +660,29 @@ function getMod() {
         return 52;
 }
 
- //Switch Bettwen Ranges
+ //Count
+function count( array, item ) {
+    var occurrence = 0;
+        for(var element = 0; element < array.length; element++){
+            if( item == array[element])
+                occurrence++;
+        }
+    return occurrence;
+}
+function checkDuplicate( array ){
+    
+    for(  var element = 0; element < array.length; element++  ){
+        if( count( array , array [ element ] ) > 1 )
+            return true;
+        }
+    return false;
+}
+function isInRange ( letter ){
+    if( ( letter >= 'a' && letter <= 'z' ) || ( letter >= 'A' && letter <= 'Z' ) )
+        return true;
+        return false;
+}
+ //Switch Between Ranges
 function switchBetweenRanges() {
 
         var encryptionMethods = document.getElementById('encryptionMethods');
@@ -574,7 +699,7 @@ function switchBetweenRanges() {
             else if(valueOfEncryptionMethods == "vigenere")
                 document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub>((m1,…,mn))=(m1+k1,…,mn+kn )<br>D<sub>d</sub>((c1,…,cn))=(c1-k1…,cn-kn ) over Z<sub>26</sub>"
             else if(valueOfEncryptionMethods == "hill")
-                document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub>(m)=me<br>D<sub>d(c)=ce<sup>-1</sup> over Z<sub>26</sub>"
+                document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub>(m)=me over Z<sub>26</sub> <br>D<sub>d(c)=ce<sup>-1</sup> over Z<sub>26</sub>"
             else if( valueOfEncryptionMethods == "permutation" )
                 document.getElementById("encryptEquation").innerHTML = " E<sub>e</sub>((m<sub>1</sub>,m<sub>2</sub>..,m<sub>n</sub>)) = ((m<sub>e(1)</sub>,m<sub>e(2)</sub>..,m<sub>e(n)</sub>)) <br> D<sub>d</sub>((c<sub>1</sub>,c<sub>2</sub>..,c<sub>n</sub>)) = ((c<sub>d(1)</sub>,c<sub>d(2)</sub>..,c<sub>d(n)</sub>))"         
         }
