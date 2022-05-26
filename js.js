@@ -10,11 +10,14 @@ var valueOFRange;
 var illustration;
 
 function GCD ( key , range ) {
+    while(key<0)
+        key+=26;
     if ( key == 0 )
         return range;
     return GCD ( range % key , key );
 }
 function inverseOfKey ( key , range) {
+    key = makeInRange(key);
     if ( GCD ( key , range ) == 1 ) {
         y = 1;
         inverse = ( range * y + 1 ) / key;
@@ -27,6 +30,11 @@ function inverseOfKey ( key , range) {
     return -1;
 }  
 
+function makeInRange(number){
+    while(number<0)
+    number+=26;
+return number;
+}
  //Exceptions
 function  isEmpty ( value ) {
     if ( value.length == 0 ) {
@@ -418,6 +426,7 @@ function dHill() {
     var c3 = (-Number(document.getElementById("cell3").value)+26)*inverseOfKey (det,26);
     var c1 = Number(document.getElementById("cell4").value)*inverseOfKey (det,26);
 
+    alert(c3);
     
     if( GCD( det , mod ) == 1 ) {
 
@@ -426,8 +435,8 @@ function dHill() {
                 if( ( valueOFRange == "lowerCaseAlphabets" ) ){
                     for( var letter = 0; letter < message.length-1; letter++ ) {
                         if( ( message[letter]  >= 'a' && message[letter]  <= 'z' ) && ( message[letter+1]  >= 'a' && message[letter+1]  <= 'z' ) ) {
-                            cipherMessage += lowerAlphabet[ (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                            cipherMessage += lowerAlphabet[ ( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            cipherMessage += lowerAlphabet[makeInRange( (c1*lowerAlphabet.indexOf( message[letter] ) + c2*lowerAlphabet.indexOf( message[letter+1] )) ) % mod  ] ;
+                            cipherMessage += lowerAlphabet[ makeInRange( c3*lowerAlphabet.indexOf( message[letter] ) + c4*lowerAlphabet.indexOf( message[letter+1]  ) ) % mod ];
                             letter++;
                         }
                         else {  
@@ -440,8 +449,8 @@ function dHill() {
                 else if( ( valueOFRange == "upperCaseAlphabets" ) ){
                     for( var letter = 0; letter < message.length-1; letter++ ) {
                         if( ( message[letter]  >= 'A' && message[letter]  <= 'Z' ) && ( message[letter+1]  >= 'A' && message[letter+1]  <= 'Z' ))  {
-                            cipherMessage += upperAlphabet[ (c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                            cipherMessage += upperAlphabet[ ( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            cipherMessage += upperAlphabet[ makeInRange(c1*upperAlphabet.indexOf( message[letter] ) + c2*upperAlphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += upperAlphabet[ makeInRange( c3*upperAlphabet.indexOf( message[letter] ) + c4*upperAlphabet.indexOf( message[letter+1]  ) ) % mod ];
                             letter++;
                         }
                         else {  
@@ -454,8 +463,8 @@ function dHill() {
                 else if( ( valueOFRange == "both" ) ){
                     for( var letter = 0; letter < message.length-1; letter++ ) {
                         if( isNaN(message[letter]) && isNaN(message[letter+1] ) ) {
-                            cipherMessage += alphabet[ (c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
-                            cipherMessage += alphabet[ ( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
+                            cipherMessage += alphabet[ makeInRange(c1*alphabet.indexOf( message[letter] ) + c2*alphabet.indexOf( message[letter+1] ) ) % mod  ] ;
+                            cipherMessage += alphabet[ makeInRange( c3*alphabet.indexOf( message[letter] ) + c4*alphabet.indexOf( message[letter+1]  ) ) % mod ];
                             letter++;
                         }
                         else {  
@@ -506,7 +515,7 @@ function permutation() {
                 if( isInRange(message[j]) )
                     cipherMessage += message[ ( codedAlphabet[j] - 1 ) + i ]
             }
-            i+=5;
+            i+=key-1;
         }
         document.getElementById("cipherText").value =  cipherMessage ;
         illustration.innerHTML = tracing(message,cipherMessage);
